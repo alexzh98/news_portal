@@ -25,27 +25,34 @@ public class Article {
     @Column(name = "CONTENT")
     private byte[] content;
 
-    @Column(name = "CATEGORY_ID")
-    int categoryId;
+//    @Column(name = "CATEGORY_ID")
+//    private int categoryId;
+//
+//    @Column(name = "AUTHOR_ID")
+//    private int authorId;
 
-    //TODO Проверить каскад и будет ли нормальное удаление без сброса всех значений
+
     
-    @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    @JoinTable(
-            name = "ARTICLES_CATEGORIES",
-            schema = "NEWS_SCHEMA",
-            joinColumns = @JoinColumn(name = "ARTICLE_ID"),
-            inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID"))
+//    @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+//    @JoinTable(
+//            name = "ARTICLES_CATEGORIES",
+//            schema = "NEWS_SCHEMA",
+//            joinColumns = @JoinColumn(name = "ARTICLE_ID"),
+//            inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID"))
+//
+//    private List<Category> categoriesOfArticle;
 
-    private List<Category> categoriesInArticle;
+    @ManyToOne
+    @JoinColumn(name = "CATEGORY_ID")
+    private Category categoryOfArticle;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "AUTHOR_ID" )
     private Author authorOfArticle;
 
-    public Article( String title, int categoryId, Author author) {
+    public Article(String title, Category categoryOfArticle, Author authorOfArticle) {
         this.title = title;
-        this.categoryId = categoryId;
-        this.authorOfArticle = author;
+        this.categoryOfArticle = categoryOfArticle;
+        this.authorOfArticle = authorOfArticle;
     }
 }

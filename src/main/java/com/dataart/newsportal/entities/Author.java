@@ -44,7 +44,6 @@ public class Author {
         article.setAuthorOfArticle(this);
     }
 
-
     public Author(String name, String surname, Date dob) {
         this.name = name;
         this.surname = surname;

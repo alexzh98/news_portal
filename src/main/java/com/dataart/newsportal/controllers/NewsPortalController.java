@@ -39,6 +39,7 @@ public class NewsPortalController {
     @PostMapping("/articles")
     public Article addNewArticle(@RequestBody Article article) {
         articleService.saveArticle(article);
+
         return article;
     }
 
@@ -95,5 +96,8 @@ public class NewsPortalController {
         categoryService.saveCategory(category);
         return category;
     }
+
+
+
 
 }

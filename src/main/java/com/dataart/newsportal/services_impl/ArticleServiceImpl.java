@@ -1,6 +1,7 @@
 package com.dataart.newsportal.services_impl;
 
 import com.dataart.newsportal.entities.Article;
+import com.dataart.newsportal.entities.Category;
 import com.dataart.newsportal.repositories.ArticleRepository;
 import com.dataart.newsportal.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,17 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findAll();
     }
 
+
+    //При создании статьи статья добавляется в список статей автора и ей назначается категория
     @Override
     public void saveArticle(Article article) {
-        articleRepository.save(article);
+
+        article.getCategoryOfArticle().addArticleInCategoriesList(article);
+
         article.getAuthorOfArticle().addArticleToAuthor(article);
+
+        articleRepository.save(article);
+
     }
 
     @Override

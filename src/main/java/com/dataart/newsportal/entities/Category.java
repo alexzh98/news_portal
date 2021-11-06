@@ -42,6 +42,7 @@ public class Category {
             articlesInCategory = new ArrayList<>();
         }
         articlesInCategory.add(article);
+        article.setCategoryOfArticle(this);
     }
 
     public Category(String name) {

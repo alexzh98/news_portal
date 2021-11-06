@@ -6,13 +6,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+
 
 @Entity
-@Table(name = "ARTICLES",schema = "NEWS_SCHEMA")
-@Getter @Setter
+@Table(name = "ARTICLES", schema = "NEWS_SCHEMA")
+@Getter
+@Setter
 @NoArgsConstructor
 public class Article {
+
+
+    @Column(name = "AUTHOR_ID")
+    private int authorIdent;
+    @Column(name = "CATEGORY_ID")
+    private int categoryIdent;
 
     @Id
     @Column(name = "ID")
@@ -32,7 +39,6 @@ public class Article {
 //    private int authorId;
 
 
-    
 //    @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 //    @JoinTable(
 //            name = "ARTICLES_CATEGORIES",
@@ -46,13 +52,22 @@ public class Article {
     @JoinColumn(name = "CATEGORY_ID")
     private Category categoryOfArticle;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    @JoinColumn(name = "AUTHOR_ID" )
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "AUTHOR_ID")
     private Author authorOfArticle;
 
+
+    //TODO Закоментированный конструктор с Объектами вместо id
     public Article(String title, Category categoryOfArticle, Author authorOfArticle) {
         this.title = title;
         this.categoryOfArticle = categoryOfArticle;
         this.authorOfArticle = authorOfArticle;
     }
+
+
+//    public Article(String title, int categoryOfArticleId, int authorId) {
+//        this.title = title;
+//        this.categoryIdent = categoryOfArticleId;
+//        this.authorIdent = authorId;
+//    }
 }

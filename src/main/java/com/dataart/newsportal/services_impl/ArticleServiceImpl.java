@@ -3,6 +3,8 @@ package com.dataart.newsportal.services_impl;
 import com.dataart.newsportal.entities.Article;
 import com.dataart.newsportal.entities.Category;
 import com.dataart.newsportal.repositories.ArticleRepository;
+import com.dataart.newsportal.repositories.AuthorRepository;
+import com.dataart.newsportal.repositories.CategoryRepository;
 import com.dataart.newsportal.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,13 @@ import java.util.Optional;
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
+    AuthorRepository authorRepository;
+
+    @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public Article getArticle(int id) {
@@ -36,8 +44,16 @@ public class ArticleServiceImpl implements ArticleService {
 
 
     //При создании статьи статья добавляется в список статей автора и ей назначается категория
+    //TODO добавлены тестовые методы
+
     @Override
     public void saveArticle(Article article) {
+
+        int authorId = article.getAuthorIdent();
+        article.setAuthorOfArticle(authorRepository.getById(authorId));
+        int categoryId = article.getCategoryIdent();
+        article.setCategoryOfArticle(categoryRepository.getById(categoryId));
+
 
         article.getCategoryOfArticle().addArticleInCategoriesList(article);
 
